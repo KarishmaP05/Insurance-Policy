@@ -10,7 +10,8 @@ from .models import Customer,Lead
 def index(request):
     return render(request,'index.html',{})
 def leads(request):
-    return render(request,'leads.html',{})
+    leads=Lead.objects.all()
+    return render(request,'leads.html',{'leads':leads})
 
 def customer(request):
     customers=Customer.objects.all()
@@ -60,14 +61,13 @@ def add_leads(request):
         firstname=request.POST['firstname']
         lastname=request.POST['lastname']
         phoneno=request.POST['phoneno']
-        email_id=request.POST['email']
-        city=request.POST['email']
+        city=request.POST['city']
         reference=request.POST['reference']
+        lob=request.POST['lob']
         follow_up_date=request.POST['follow-up date']
         notes=request.POST['notes']
-        customer_type=request.POST['customer-type']
-        assign_to=request.POST.get('assign_to',False);
-        add_customer=Lead.objects.create(FirstName=firstname,LastName=lastname,Phone_No=phoneno,Email_Id=email_id,City=city,Reference=reference,Follow_up_date=follow_up_date,Notes=notes,Customer_Type=customer_type,Assign_to=assign_to)
+        
+        add_lead=Lead.objects.create(FirstName=firstname,LastName=lastname,Phone_No=phoneno,City=city,Reference=reference,LOB=lob,Follow_up_date=follow_up_date,Notes=notes)
         return redirect('/leads')
     
     
@@ -75,6 +75,65 @@ def add_leads(request):
 
 
 
+def edit_leads(request,id):
+    if request.method=='POST':
+        firstname=request.POST['firstname']
+        lastname=request.POST['lastname']
+        phoneno=request.POST['phoneno']
+        city=request.POST['city']
+        reference=request.POST['reference']
+        lob=request.POST['lob']
+        follow_up_date=request.POST['follow-up date']
+        notes=request.POST['notes']
+        
+        edit_lead=Lead.objects.get(id=id)
+        edit_lead.FirstName=firstname
+        edit_lead.LastName=lastname
+        edit_lead.Phone_No=phoneno
+        edit_lead.City=city
+        edit_lead.Reference=reference
+        edit_lead.LOB=lob
+        edit_lead.Follow_up_date=follow_up_date
+        edit_lead.Notes=notes
+        edit_lead.save()
+        return redirect('/leads')
+    
+    displaylead=Lead.objects.get(id=id)
+    return render(request,'edit_lead.html',{'displaylead':displaylead})
 
 
+
+def edit_customers(request,id):
+    if request.method=='POST':
+        firstname=request.POST['firstname']
+        lastname=request.POST['lastname']
+        phoneno=request.POST['phoneno']
+        email_id=request.POST['email']
+        city=request.POST['email']
+        reference=request.POST['reference']
+        follow_up_date=request.POST['follow-up date']
+        notes=request.POST['notes']
+        customer_type=request.POST['customer-type']
+        assign_to=request.POST.get('assign_to',False);
+        edit_customer=Customer.objects.get(id=id)
+        edit_customer.FirstName=firstname
+        edit_customer.LastName=lastname
+        edit_customer.Phone_No=phoneno
+        edit_customer.Email_Id=email_id
+        edit_customer.City=city
+        edit_customer.Reference=reference
+        edit_customer.Follow_up_date=follow_up_date
+        edit_customer.Notes=notes
+        edit_customer.Customer_Type=customer_type
+        edit_customer.Assign_to=assign_to
+        edit_customer.save()
+
+        return redirect('/customer')
+    
+    displaycustomer=Customer.objects.get(id=id)
+    return render(request,'edit_customer.html',{'displaycustomer':displaycustomer})
+
+def claims(request):
+
+    return render(request,'claim.html',{})
 

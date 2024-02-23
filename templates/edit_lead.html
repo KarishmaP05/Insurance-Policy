@@ -7,34 +7,34 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Add Leads</h6>
-                            <form method="post" action="/add-leads/">
+                            <h6 class="mb-4">Edit Leads</h6>
+                            <form method="post" action="/edit-leads/{{displaylead.id}}">
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <label for="FirstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="FirstName"  placeholder="enter your first name" name="firstname"required>
+                                    <input type="text" class="form-control" id="FirstName"  value="{{displaylead.FirstName}}" name="firstname"required>
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label for="LastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="LastName"  placeholder="enter your last name" name="lastname">
+                                    <input type="text" class="form-control" id="LastName"  value="{{displaylead.LastName}}" name="lastname">
                                 </div>
                                 <div class="mb-3">
                                     <label for="Phoneno" class="form-label">Phone No.</label>
-                                    <input type="text" class="form-control" id="Phoneno"  placeholder="enter phone number" name="phoneno"required>
+                                    <input type="text" class="form-control" id="Phoneno"  value="{{displaylead.Phone_No}}" name="phoneno"required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="city">City</label>
-                                    <input type="text" class="form-control" id="city"  placeholder="enter your city name" name="city"required>
+                                    <input type="text" class="form-control" id="city"  value="{{displaylead.City}}" name="city"required>
                                  
                                 </div>
                                 <div class="mb-3">
                                     <label for="reference" class="form-label">Reference</label>
-                                    <input type="text" class="form-control" id="reference"  placeholder="enter your reference" name="reference" >
+                                    <input type="text" class="form-control" id="reference"  value="{{displaylead.Reference}}" name="reference" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label form-label">LOB</label>
-                                    <select class="form-select" aria-label="Default select example"  placeholder="select your lob" name="lob" required>
+                                    <select class="form-select" aria-label="Default select example"  value="{{displaylead.LOB}}" name="lob" required>
                                         <option>select lob</option>
                                         <option>Aviation</option>
                                         <option>Engineering</option>
@@ -45,18 +45,13 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="follow-up date">Follow-up Date</label>
-                                    <input type="date"class="form-control" placeholder="Add Followup date"  id="follow-up date" name="follow-up date">
+                                    <input type="date"class="form-control" value="{{displaylead.Follow_up_date}}"  id="follow-up date" name="follow-up date">
                                 </div>
                                 <div class="mb-3">
                                     <label for="Notes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="Notes"  placeholder="enter your note" name="notes">
+                                    <input type="text" class="form-control" id="Notes"  value="{{displaylead.Notes}}" name="notes">
                                 </div>
-                                
-
-                                
-
-                              
-                                
+                          
                                 <button type="submit"  class="btn btn-primary">Add</button>
                             </form>
                         </div>

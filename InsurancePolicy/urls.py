@@ -14,7 +14,12 @@ urlpatterns = [
     path('table/',views.table,name='table'),
     path('form/',views.form,name="form"),
     path('add-customers/',views.add_customers,name='add-customers'),
-    path('add-leads/',views.add_leads,name="add-leads")
+    path('add-leads/',views.add_leads,name="add-leads"),
+    path('edit-leads/<int:id>',views.edit_leads,name="edit-leads"),
+    path('edit-customers/<int:id>',views.edit_customers,name="edit-customers"),
+    path('claims/',views.claims,name="claims"),
+
+
 
     
    
