@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block mainsection %}
+    <div class="container-fluid position-relative bg-white d-flex p-0" style="width: 100em;margin-left: 10em;">
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4" style="width: 300em;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Add Customer</h6>
+                            <form method="post" action="/add-customers/">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="FirstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="FirstName"  placeholder="enter your first name" name="firstname"required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="LastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="LastName"  placeholder="enter your last name" name="lastname">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Phoneno" class="form-label">Phone No.</label>
+                                    <input type="text" class="form-control" id="Phoneno"  placeholder="enter phone number" name="phoneno"required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="Email"
+                                        aria-describedby="emailHelp"  placeholder="enter your email id" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="city">City</label>
+                                    <input type="text" class="form-control" id="city"  placeholder="enter your city name" name="city"required>
+                                 
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reference" class="form-label">Reference</label>
+                                    <input type="text" class="form-control" id="reference"  placeholder="enter your reference" name="reference" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="follow-up date">Follow-up Date</label>
+                                    <input type="date"class="form-control" placeholder="Add Followup date"  id="follow-up date" name="follow-up date">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Notes" class="form-label">Notes</label>
+                                    <input type="text" class="form-control" id="Notes"  placeholder="enter your note" name="notes">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label form-label">Customer Type</label>
+                                    <select class="form-select" aria-label="Default select example"  placeholder="select customer type" name="customer-type" required>
+                                        <option>select Customer type</option>
+                                        <option>HNI</option>
+                                        <option>Upper Middle</option>
+                                        <option>Middle</option>
+                                        <option>Lower Middle</option>
+                                       
+
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="selectEmployee" class="form-label">Assign to</label>
+                                        <select name="selectEmployee" id="selectEmployee" class="form-select"  name="assign_to" placeholder="select" >
+                                            <option value="" disabled="">Select an employee</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                              
+                                
+                                <button type="submit"  class="btn btn-primary">Add</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <!-- Form End -->
+    </div>
+
+    {% endblock mainsection %}
