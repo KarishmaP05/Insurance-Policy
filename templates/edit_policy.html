@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% block mainsection %}
+    <div class="container-fluid position-relative bg-white d-flex p-0" style="width: 100em;margin-left: 10em;">
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4" style="width: 300em;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Edit Policy</h6>
+                            <form method="post" action="/add-policy/">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="startdate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startdate"  value='{{displaypolicy.Start_date}}' name="startdate"required 'readonly'=readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="enddate" class="form-label">End Date</label>
+                                    <input type="date" class="form-control" id="enddate" value="{{displaypolicy.End_date}}" name="enddate"required 'readonly'=readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label form-label">Select Insurance Type</label>
+                                    <select class="form-select" aria-label="Default select example"  name="insurance-type" required>
+                                        <option>select Insurance type</option>
+                                        <option>General Insurance</option>
+                                        <option>Life Insurance</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label form-label">Select Company</label>
+                                    <select class="form-select" aria-label="Default select example"  placeholder="select Company" name="company" required>
+                                        <option>select Company</option>
+                                        <option>Acko General Insurance Limited</option>
+                                        <option>Agriculture Insurance Company of India Limited</option>
+                                        <option>Bajaj Allianz General Insurance Company Limited</option>
+                                        <option>Cholamandalam MS General Insurance Company Limited</option>
+                                        <option>Future Generali India Insurance Company Limited</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label form-label">Select LOB</label>
+                                    <select class="form-select" aria-label="Default select example"  placeholder="select lob" name="lob" required>
+                                        <option>select LOB</option>
+                                        <option>Aviation</option>
+                                        <option>Engineering</option>
+                                        <option>Marine</option>
+                                        <option>Motor 4W</option>
+                                        <option>Motor 2W</option>
+                                        <option>Motor CV</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="policynumber" class="form-label">Policy Number</label>
+                                    <input type="text" class="form-control" id="policynumber" value='{{displaypolicy.Policy_Number}}' name="policynumber"required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="productname" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="productname"  value="{{displaypolicy.Product_Name}}" name="productname"required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="suminsured" class="form-label"> Sum Insured</label>
+                                    <input type="number" class="form-control" id="suminsured"  value={{displaypolicy.Sum_Insured}} name="suminsured"required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="od" class="form-label"> OD</label>
+                                    <input type="number" class="form-control" id="od"  value="{{displaypolicy.OD}}" name="od" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="tp" class="form-label">TP</label>
+                                    <input type="number" class="form-control" id="tp"  value="{{displaypolicy.TP}}" name="tp" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="net premium" class="form-label">Net Premium</label>
+                                    <input type="number" class="form-control" id="net premium"  value='{{displaypolicy.Net_Premium}}' name="net premium"required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label form-label">GST Rate</label>
+                                    <select class="form-select" aria-label="Default select example"  placeholder="select GST Rate" name="gst rate" required>
+                                        <option>select GST</option>
+                                        <option value='1'>0%</option>
+                                        <option value='2'>5%</option>
+                                        <option value='3'>12%</option>
+                                        <option value='4'>18%</option>
+                                        <option value='5'>28%</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="gross premium" class="form-label">Gross Premium</label>
+                                    <input  type="number" class="form-control" id="gross premium"   name="gross premium" value='{{displaypolicy.Gross_Premium}}' required>
+                                </div>
+
+                                
+
+                                <div class="mb-3">
+                                    <label for="attachment" class="form-label">Attachment</label>
+                                    <input accept=".pdf" type='file' class="form-control" id="attachment"  name="attachment" required>
+                                </div>
+
+                                <button type="submit"  class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <!-- Form End -->
+    </div>
+
+    {% endblock mainsection %}

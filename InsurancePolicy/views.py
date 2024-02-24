@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
-from .models import Customer,Lead
+from .models import Customer,Lead,Policy
 
 # Create your views here.
 
@@ -137,3 +137,64 @@ def claims(request):
 
     return render(request,'claim.html',{})
 
+def policy(request):
+    policies=Policy.objects.all()
+    return render(request,'policy.html',{'policies':policies})
+
+def add_policy(request):
+    if request.method=='POST':
+        start_date=request.POST['startdate']
+        end_date=request.POST['enddate']
+        insurance_type=request.POST['insurance-type']
+        company=request.POST['company']
+        lob=request.POST['lob']
+        policy_number=request.POST['policynumber']
+        product_name=request.POST['productname']
+        sum_insured=request.POST['suminsured']
+        od=request.POST['od']
+        tp=request.POST['tp']
+        gst_rate=request.POST['gst rate']
+        gross_premium=request.POST.get('gross premium',False)
+        net_premium=request.POST.get('net premium',False)
+        attchment=request.POST['attachment']
+        add_policy=Policy.objects.create(Start_Date=start_date,End_Date=end_date,Insurance_Type=insurance_type,Company=company,LOB=lob,Policy_Number=policy_number,Product_Name=product_name,Sum_Insured=sum_insured,OD=od,TP=tp,GST_Rate=gst_rate,Gross_Premium=gross_premium,Net_Premium=net_premium,Attachment=attchment)
+        return redirect('/policy')
+    return render(request,'add_policy_form.html',{})
+
+def edit_policy(request,id):
+    if request.method=='POST':
+        start_date=request.POST['startdate']
+        end_date=request.POST['enddate']
+        insurance_type=request.POST['insurance-type']
+        company=request.POST['company']
+        lob=request.POST['lob']
+        policy_number=request.POST['policynumber']
+        product_name=request.POST['productname']
+        sum_insured=request.POST['suminsured']
+        od=request.POST['od']
+        tp=request.POST['tp']
+        gst_rate=request.POST['gst rate']
+        gross_premium=request.POST.get('gross premium',False)
+        net_premium=request.POST.get('net premium',False)
+        attchment=request.POST['attachment']
+        edit_policy=Policy.objects.get(id=id)
+        edit_policy.Start_Date=start_date
+        edit_policy.End_Date=end_date
+        edit_policy.Insurance_Type=insurance_type
+        edit_policy.Company=company
+        edit_policy.LOB=lob
+        edit_policy.Policy_Number=policy_number
+        edit_policy.Product_Name=product_name
+        edit_policy.Sum_Insured=sum_insured
+        edit_policy.OD=od
+        edit_policy.TP=tp
+        edit_policy.GST_Rate=gst_rate
+        edit_policy.Gross_Premium=gross_premium
+        edit_policy.Net_Premium=net_premium
+        edit_policy.Attachment=attchment
+        edit_policy.save()
+        return redirect('/policy')
+    
+
+    displaypolicy=Policy.objects.get(id=id)
+    return render(request,'edit_policy.html',{'displaypolicy':displaypolicy})

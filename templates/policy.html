@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block mainsection %}
+{% load static %}
+<div class="col-12">
+    <div class="border-bottom card-body">
+        <div class="d-flex align-itms-center">
+            <h5 class="mb-0 card-title flex-grow-1">Policy</h6>
+                <div class="flex-shrink-0">
+                    <a class='btn btn-primary me-1' href="/add-policy">Add new Policy</a>
+                </div>
+        </div>
+    </div>
+
+        
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sr.No</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">LOB</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col"> Policy Status</th>
+                    <th scope="col">Action</th> 
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for policy in policies %}
+          
+
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{policy.Start_Date}}</td>
+                    <td>{{policy.End_Date}}</td>
+                    <td>{{policy.LOB}}</td>
+                    <td>{{policy.Product_Name}}</td>
+                    <td>{{policy.Policy_Status}}</td>
+                    <td><a href="/edit-policy/{{policy.id}}">Edit</a></td>
+                  
+                   
+                </tr>
+                {% endfor %}
+    
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock mainsection %}

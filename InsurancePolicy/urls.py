@@ -18,6 +18,9 @@ urlpatterns = [
     path('edit-leads/<int:id>',views.edit_leads,name="edit-leads"),
     path('edit-customers/<int:id>',views.edit_customers,name="edit-customers"),
     path('claims/',views.claims,name="claims"),
+    path('policy/',views.policy,name="policy"),
+    path('add-policy/',views.add_policy,name="add-policy"),
+    path('edit-policy/<int:id>',views.edit_policy,name="edit-policy"),
 
 
 
