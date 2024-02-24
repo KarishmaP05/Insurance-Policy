@@ -21,6 +21,7 @@ urlpatterns = [
     path('policy/',views.policy,name="policy"),
     path('add-policy/',views.add_policy,name="add-policy"),
     path('edit-policy/<int:id>',views.edit_policy,name="edit-policy"),
+    path('create-claims/',views.create_claims,name="create-claims"),
 
 
 

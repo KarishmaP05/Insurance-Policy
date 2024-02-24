@@ -69,3 +69,20 @@ class Policy(models.Model):
     
     def __str__(self):
         return str(self.Policy_Number)
+    
+
+class Claim(models.Model):
+    Customer_Id=models.ForeignKey(Customer,on_delete=models.CASCADE)
+    Policy_Id=models.ForeignKey(Policy,on_delete=models.CASCADE)
+    Claim_Incident_Date=models.DateField(default=date.today())
+    Claim_Filed_Date=models.DateField(default=date.today())
+    Claim_Reason=models.CharField(max_length=500)
+    Requested_Claim_Amount=models.IntegerField()
+    Claim_Status=models.CharField(max_length=500)
+    Claim_Final_Paid=models.IntegerField()
+    Notes=models.CharField(max_length=500)
+    
+
+    def __str__(self):
+        return self.Customer_Name
+

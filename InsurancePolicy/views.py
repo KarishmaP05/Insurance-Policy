@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
-from .models import Customer,Lead,Policy
+from .models import Customer,Lead,Policy,Claim
 
 # Create your views here.
 
@@ -198,3 +198,25 @@ def edit_policy(request,id):
 
     displaypolicy=Policy.objects.get(id=id)
     return render(request,'edit_policy.html',{'displaypolicy':displaypolicy})
+
+
+def create_claims(request):
+    if request.method=='POST':
+        cust_id=request.POST['cust_id']
+        cust_instance= Customer.objects.get(id=int(cust_id))
+        policy_id=request.POST['Policy_id']
+        policy_instance=Policy.objects.get(id=int(policy_id))
+        claim_incident_date=request.POST['claim_incident_date']
+        claim_filed_date=request.POST['claim_filed_date']
+        claim_reason=request.POST['claim_reason']
+        requested_claim_amount=request.POST['requested_claim_amount']
+        claim_status=request.POST['claim_status']
+        claim_final_paid=request.POST['claim_final_paid']
+        notes=request.POST['notes']
+        create_claim=Claim.objects.create(Customer_Id=cust_instance,Policy_Id=policy_instance,Claim_Incident_Date=claim_incident_date,Claim_Filed_Date=claim_filed_date,Claim_Reason=claim_reason,Requested_Claim_Amount=requested_claim_amount,Claim_Status=claim_status,Claim_Final_Paid=claim_final_paid,Notes=notes)
+
+        return redirect('/claims')
+
+    customers=Customer.objects.all()
+    policies=Policy.objects.all()
+    return render(request,'create_claim_form.html',{'customers':customers,'policies':policies})

@@ -62,31 +62,31 @@
 
                                 <div class="mb-3">
                                     <label for="suminsured" class="form-label"> Sum Insured</label>
-                                    <input type="number" class="form-control" id="suminsured"  onchange="myChangeFunction(this)" placeholder="enter suminsured" name="suminsured"required>
+                                    <input type="number" class="form-control" id="suminsured"  oninput="calculateNetPremium()" placeholder="enter suminsured" name="suminsured"required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="od" class="form-label"> OD</label>
-                                    <input type="number" class="form-control" id="od"  onchange="myChangeFunction(this)" placeholder="enter od" name="od" required>
+                                    <input type="number" class="form-control" id="od"   oninput="calculateNetPremium()" placeholder="enter od" name="od" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="tp" class="form-label">TP</label>
-                                    <input type="number" class="form-control" id="tp"  onchange="myChangeFunction(this)" placeholder="enter tp" name="tp" required>
+                                    <input type="number" class="form-control" id="tp"   oninput="calculateNetPremium()" placeholder="enter tp" name="tp" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="net premium" class="form-label">Net Premium</label>
-                                    <input disabled type="number" class="form-control" id="net premium"  value='0' name="net premium"required>
+                                    <input disabled type="number" class="form-control" id="net premium"  oninput='calculateGrossPremium()' value='0' name="net premium"required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label form-label">GST Rate</label>
-                                    <select class="form-select" aria-label="Default select example"  placeholder="select GST Rate" name="gst rate" required>
+                                    <select class="form-select" aria-label="Default select example" oninput='calculateGrossPremium()'  placeholder="select GST Rate" id ="gst rate" name="gst rate" required>
                                         <option>select GST</option>
-                                        <option value='1'>0%</option>
-                                        <option value='2'>5%</option>
-                                        <option value='3'>12%</option>
-                                        <option value='4'>18%</option>
-                                        <option value='5'>28%</option>
+                                        <option value='0'>0%</option>
+                                        <option value='5'>5%</option>
+                                        <option value='12'>12%</option>
+                                        <option value='18'>18%</option>
+                                        <option value='28'>28%</option>
                                     </select>
                                 </div>
 
@@ -114,12 +114,34 @@
 
     {% block jssection %}
     
-    
-    <script type="text/javascript">
-        function myChangeFunction(suminsured) {
-          var net_premium = document.getElementById('net premium');
-          net_premium.value = suminsured.value;
+
+      <script type="text/javascript">
+        function calculateNetPremium() {
+            // Get the values from the input fields
+            var sumInsured = parseFloat(document.getElementById('suminsured').value) || 0;
+            var OD = parseFloat(document.getElementById('od').value) || 0;
+            var TP = parseFloat(document.getElementById('tp').value) || 0;
+            
+            // Calculate the net premium
+            var netPremium = sumInsured + OD + TP;
+            
+            // Set the value of the net premium input field
+            document.getElementById('net premium').value = netPremium;
         }
-      </script>
+    </script>
+
+
+    <script type="text/javascript">
+        function calculateGrossPremium(){
+            var netPremium= parseFloat(document.getElementById('net premium').value) || 0;
+            var gstRate= parseFloat(document.getElementById('gst rate').value) || 0;
+
+            var grossPremium=netPremium+(netPremium*gstRate/100);
+
+            document.getElementById('gross premium').value=grossPremium;
+
+        }
+
+    </script>
     
     {% endblock jssection %}

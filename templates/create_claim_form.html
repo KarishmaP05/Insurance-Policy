@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block mainsection %}
+    <div class="container-fluid position-relative bg-white d-flex p-0" style="width: 100em;margin-left: 10em;">
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4" style="width: 300em;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Create Claim</h6>
+                            <form method="post" action="/create-claims/">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="Customer_Name" class="form-label">Customer Name</label>
+                                    <select class="form-select" aria-label="Default select example"  placeholder="select customer" name="cust_id" required>
+                                        <option>select customer name</option>
+                                        {% for customer in customers  %}
+                                        <option value='{{customer.id}}'>{{customer.FirstName}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="Product_Name" class="form-label">Product Name</label>
+                                    <select class="form-select" aria-label="Default select example"  placeholder="select product name" name="Policy_id" required>
+                                        <option>select product name</option>
+                                        {% for policy in policies %}
+                                        <option value='{{policy.id}}'>{{policy.Product_Name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Claim_Incident_Date" class="form-label">Claim Incident Date</label>
+                                    <input type="date" class="form-control" id="Claim_Incident_Date"  placeholder="enter Claim Incident Date" name="claim_incident_date" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Claim_Filed_Date" class="form-label">Claim Filed Date</label>
+                                    <input type="date" class="form-control" id="Claim_Filed_Date"  placeholder="enter Claim Filed Date" name="claim_filed_date" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Claim_Reason" class="form-label">Claim Reason</label>
+                                    <input type="text" class="form-control" id="EmaClaim_Reasonil"  placeholder="enter claim reason" name="claim_reason" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="Requested_Claim_Amount">Requested Claim Amount</label>
+                                    <input type="number" class="form-control" id="Requested_Claim_Amount"  placeholder="enter claim amount" name="requested_claim_amount" required>
+                                 
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Claim_Status" class="form-label">Claim Status</label>
+                                    <select class="form-select" aria-label="Default select example"  placeholder="claim status" name="claim_status" required>
+                                        <option>select Claim Status</option>
+                                        <option>Paid</option>
+                                        <option>Declined</option>
+                                        <option>On Hold</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="follow-up date">Claim Final Paid</label>
+                                    <input type="number"class="form-control" value='0'  id="Claim_Final_Paid" name="claim_final_paid">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Notes" class="form-label">Notes</label>
+                                    <input type="text" class="form-control" id="Notes"  placeholder="enter your note" name="notes">
+                                </div>
+                                <button type="submit"  class="btn btn-primary">Create</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <!-- Form End -->
+    </div>
+
+    {% endblock mainsection %}

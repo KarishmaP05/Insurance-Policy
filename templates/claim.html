@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+ {% extends "base.html" %}
 {% load static %}
 {% block mainsection %}
 <div>
@@ -6,9 +6,45 @@
         <div class="d-flex align-itms-center">
             <h5 class="mb-0 card-title flex-grow-1">Claims</h6>
                 <div class="flex-shrink-0">
-                    <a class='btn btn-primary me-1' href="">Add Claim</a>
+                    <a class='btn btn-primary me-1' href="/create-claims">Create Claim</a>
                 </div>
         </div>
     </div>
+          
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sr.No</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Phone No</th>
+                    <th scope="col">LOB</th>
+                    <th scope="col">Policy Number</th>
+                    <th scope="col">Policy Expired Date</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Claim Incident Date</th>
+                    <th scope="col">Claim Filed Date</th>
+                    <th scope="col">Req.Claim Amt.</th>
+                    <th scope="col">Claim Final Paid</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Notes</th>
+                </tr>
+            </thead>
+
+            <tbody>
+              
+
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    
+                </tr>
+               
+              
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 {% endblock mainsection %}
+
