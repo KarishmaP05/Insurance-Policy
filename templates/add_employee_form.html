@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block mainsection %}
+    <div class="container-fluid position-relative bg-white d-flex p-0" style="width: 100em;margin-left: 10em;">
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4" style="width: 300em;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Add Employee</h6>
+                            <form method="post" action="/add-employee/">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="FirstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="FirstName"  placeholder="enter first name" name="firstname"required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="LastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="LastName"  placeholder="enter last name" name="lastname">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Phoneno" class="form-label">Phone No.</label>
+                                    <input type="text" class="form-control" id="Phoneno"  placeholder="enter phone number" name="phoneno"required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="Email"
+                                        aria-describedby="emailHelp"  placeholder="enter email id" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="city">Password</label>
+                                    <input type="text" class="form-control" id="passowrd"  placeholder="enter password" name="password" required>
+                                 
+                                </div>
+
+                                <fieldset class="row mb-3">
+                                    <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="option1" checked>
+                                            <label class="form-check-label" for="gridRadios1"> Male </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="option2">
+                                            <label class="form-check-label" for="gridRadios2"> Female</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+
+                                <div class="mb-3">
+                                    <label for="job-title" class="form-label">Job Title</label>
+                                    <input type="text" class="form-control" id="job-title"  placeholder="enter job-title" name="job-title" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="job-location">Job Location</label>
+                                    <input type="text"class="form-control" placeholder="enter job-location"  id="job-location" name="job-location">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="joining-date" class="form-label">Joining Date</label>
+                                    <input type="date" class="form-control" id="joining-date"  placeholder="enter joining date" name="joining-date">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="dob" class="form-label">DOB</label>
+                                    <input type="date" class="form-control" id="dob"  placeholder="enter date of birth" name="dob">
+                                </div>
+
+                                
+
+                              
+                                
+                                <button type="submit"  class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <!-- Form End -->
+    </div>
+
+    {% endblock mainsection %}

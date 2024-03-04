@@ -18,10 +18,21 @@ urlpatterns = [
     path('edit-leads/<int:id>',views.edit_leads,name="edit-leads"),
     path('edit-customers/<int:id>',views.edit_customers,name="edit-customers"),
     path('claims/',views.claims,name="claims"),
-    path('policy/',views.policy,name="policy"),
+    path('policy/<int:id>',views.policy,name="policy"),
     path('add-policy/',views.add_policy,name="add-policy"),
     path('edit-policy/<int:id>',views.edit_policy,name="edit-policy"),
     path('create-claims/',views.create_claims,name="create-claims"),
+    path('profile/',views.profile,name="profile"),
+    path('familydetails/',views.family_details,name="familydetails"),
+    path('socialmedia/',views.social_media,name="socialmedia"),
+    path('profile/',views.profile,name="profile"),
+    path('team/',views.team,name="team"),
+    path('add-employee/',views.add_employee,name="team"),
+    path('single-view/',views.single_view,name="single-view"),
+    path('saveprofile/',views.save_profile,name="saveprofile"),
+    path('error_page/',views.error_page,name="error_page"),
+
+    
 
 
 

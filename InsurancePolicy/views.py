@@ -3,12 +3,16 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
-from .models import Customer,Lead,Policy,Claim
+from .models import Customer,Lead,Policy,Claim,Employee,User_Profile
 
 # Create your views here.
 
 def index(request):
-    return render(request,'index.html',{})
+    if request.user.is_authenticated:
+        return render(request,'index.html',{})
+    else:
+        return redirect('/signin')
+    
 def leads(request):
     leads=Lead.objects.all()
     return render(request,'leads.html',{'leads':leads})
@@ -19,11 +23,13 @@ def customer(request):
 
 def signup(request):
     if request.method == 'POST':
-        username=request.POST['name']
+        firstname=request.POST['name']
         email=request.POST['email']
         password=request.POST['password']
 
-        u = User.objects.create_user(username=username,email=email,password=password)
+        u = User.objects.create_user(username=email,email=email,first_name=firstname,password=password)
+        user_profile=User_Profile.objects.create(User_Id=u,Email_Id=email)
+
 
         print(u)
 
@@ -32,7 +38,29 @@ def signup(request):
     return render(request,'signup.html',{})
 
 def signin(request):
+   
+    if request.method == 'POST':
+        email=request.POST['email']
+        password=request.POST['password']
+        user = authenticate(request, username=email, password=password)
+        
+        print("user",user)
+        if user is not None:
+         
+            login(request, user)
+            print("you have successfully login")
+            return redirect('/')    # 
+
+        else:
+            
+            print("Invalid Credentials")
+            return redirect('/signin')  # url/action at the time of redirect
+        
+
     return render(request,'signin.html',{})
+
+def error_page(request):
+    return render(request,'404.html',{})
 
 def table(request):
     return render(request,'table.html',{})
@@ -134,15 +162,18 @@ def edit_customers(request,id):
     return render(request,'edit_customer.html',{'displaycustomer':displaycustomer})
 
 def claims(request):
+    claims=Claim.objects.all()
 
-    return render(request,'claim.html',{})
+    return render(request,'claim.html',{'claims':claims})
 
-def policy(request):
-    policies=Policy.objects.all()
+def policy(request,id):
+    policies=Policy.objects.filter(Customer_Id=id)
     return render(request,'policy.html',{'policies':policies})
 
 def add_policy(request):
     if request.method=='POST':
+        cust_id=request.POST.get('cust_id', False)
+        cust_instance= Customer.objects.get(id=int(cust_id))
         start_date=request.POST['startdate']
         end_date=request.POST['enddate']
         insurance_type=request.POST['insurance-type']
@@ -157,7 +188,7 @@ def add_policy(request):
         gross_premium=request.POST.get('gross premium',False)
         net_premium=request.POST.get('net premium',False)
         attchment=request.POST['attachment']
-        add_policy=Policy.objects.create(Start_Date=start_date,End_Date=end_date,Insurance_Type=insurance_type,Company=company,LOB=lob,Policy_Number=policy_number,Product_Name=product_name,Sum_Insured=sum_insured,OD=od,TP=tp,GST_Rate=gst_rate,Gross_Premium=gross_premium,Net_Premium=net_premium,Attachment=attchment)
+        add_policy=Policy.objects.create(Customer_Id=cust_instance,Start_Date=start_date,End_Date=end_date,Insurance_Type=insurance_type,Company=company,LOB=lob,Policy_Number=policy_number,Product_Name=product_name,Sum_Insured=sum_insured,OD=od,TP=tp,GST_Rate=gst_rate,Gross_Premium=gross_premium,Net_Premium=net_premium,Attachment=attchment)
         return redirect('/policy')
     return render(request,'add_policy_form.html',{})
 
@@ -177,6 +208,7 @@ def edit_policy(request,id):
         gross_premium=request.POST.get('gross premium',False)
         net_premium=request.POST.get('net premium',False)
         attchment=request.POST['attachment']
+
         edit_policy=Policy.objects.get(id=id)
         edit_policy.Start_Date=start_date
         edit_policy.End_Date=end_date
@@ -204,8 +236,12 @@ def create_claims(request):
     if request.method=='POST':
         cust_id=request.POST['cust_id']
         cust_instance= Customer.objects.get(id=int(cust_id))
+        # cust_phone=request.POST['phoneno']
+        # phone_instance=Customer.objects.get(id=int(cust_id))
         policy_id=request.POST['Policy_id']
         policy_instance=Policy.objects.get(id=int(policy_id))
+        print("dfjhdfkjdgfkjdgfdk",policy_instance.LOB)   # It returns ID of that policy
+
         claim_incident_date=request.POST['claim_incident_date']
         claim_filed_date=request.POST['claim_filed_date']
         claim_reason=request.POST['claim_reason']
@@ -220,3 +256,105 @@ def create_claims(request):
     customers=Customer.objects.all()
     policies=Policy.objects.all()
     return render(request,'create_claim_form.html',{'customers':customers,'policies':policies})
+
+
+
+
+def profile(request):
+    return render(request,'profile.html',{})
+
+def family_details(request):
+    return render(request,'familydetails.html',{})
+
+
+def social_media(request):
+    return render(request,'socialmedia.html',{})
+
+
+
+def team(request):
+    employees=Employee.objects.all()
+    return render(request,'team.html',{'employees':employees})
+
+def add_employee(request):
+    if request.method=='POST':
+        firstname=request.POST['firstname']
+        lastname=request.POST['lastname']
+        phoneno=request.POST['phoneno']
+        email_id=request.POST['email']
+        password=request.POST['password']
+        gender=request.POST['gender']
+        job_title=request.POST['job-title']
+        job_location=request.POST['job-location']
+        joining_date=request.POST['joining-date']
+        date_of_birth=request.POST['dob']
+        add_employee=Employee.objects.create(FirstName=firstname,LastName=lastname,Phone_No=phoneno,Email_Id=email_id,Password=password,Gender=gender,Job_Title=job_title,Job_Location=job_location,Joining_Date=joining_date,Date_Of_Birth=date_of_birth)
+        return redirect('/team')
+
+    return render(request,'add_employee_form.html',{})
+
+
+def single_view(request):
+
+    return render(request,'single_view_of_customer.html',{})
+
+
+def save_profile(request):
+    if request.method=='POST':
+        save_type=request.POST['save_type']
+       
+
+        if save_type=='personal_details':
+            firstname = request.POST['firstName']
+            lastname=request.POST['lastName']
+            email_id=request.POST['email']
+            address=request.POST['address']
+            date_of_birth=request.POST['dob']
+            gender=request.POST['gender']
+          
+
+            save_profile=User_Profile.objects.get(User_Id=request.user.id)
+            
+            save_profile.User_Id.username=firstname
+            save_profile.LastName=lastname
+            save_profile.Email_Id=email_id
+            save_profile.Address=address
+            save_profile.Date_of_Birth=date_of_birth
+            save_profile.Gender=gender
+            save_profile.save()
+
+        if save_type=='family_details':
+
+            
+            fathername=request.POST['fatherName']
+            mothername=request.POST['motherName']
+            fatherDOB=request.POST['fatherDOB']
+            motherDOB=request.POST['motherDOB']
+            maritalstatus=request.POST['maritalstatus']
+
+            save_profile=User_Profile.objects.get(User_Id=request.user.id)
+            save_profile.FatherName=fathername
+            save_profile.FatherDOB=fatherDOB
+            save_profile.MotherName=mothername
+            save_profile.MotherDOB=motherDOB
+            save_profile.MaritalStatus=maritalstatus
+            save_profile.save()
+
+
+
+        if save_type=='social_media':
+
+     
+            linkedin=request.POST['linkedin']
+            twitter=request.POST['twitter']
+            instagram=request.POST['instagram']
+            save_profile=User_Profile.objects.get(User_Id=request.user.id)
+            save_profile.LinkedIn=linkedin
+            save_profile.Instagram=instagram
+            save_profile.Twitter=twitter
+            save_profile.save()
+
+        return redirect('/profile')
+
+
+    return render(request,'profile.html',{})

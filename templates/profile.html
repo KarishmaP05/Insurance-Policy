@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+{% block mainsection %}
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills flex-column flex-md-row mb-4 gap-2 gap-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="/profile"
+                    ><i class="mdi mdi-account-outline mdi-20px me-1"></i>Personal Details</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/familydetails"
+                    ><i class="mdi mdi-account-outline mdi-20px me-1"></i>Family Details</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/socialmedia"
+                    ><i class="mdi mdi-account-outline mdi-20px me-1"></i>Social Media</a
+                  >
+                </li>
+              </ul>
+          <div class="card mb-4">
+            <h4 class="card-header">Profile Details</h4>
+            <!-- Account -->
+            <div class="card-body">
+            </div>
+            <div class="card-body pt-2 mt-1">
+              <form id="formAccountSettings" method="POST"  action="/saveprofile/">
+                {% csrf_token %}
+                <div class="row mt-2 gy-4">
+                  <div class="col-md-6">
+                    <div class="form-floating form-floating-outline">
+                      <input
+                        class="form-control"
+                        type="text"
+                        id="firstname"
+                        name="firstName"
+                       
+                        autofocus />
+                      <label for="firstName">First Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating form-floating-outline">
+                      <input class="form-control" type="text" name="lastName" id="lastName" />
+                      <label for="lastName">Last Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating form-floating-outline">
+                      <input
+                        class="form-control"
+                        type="email"
+                        id="email"
+                        name="email"
+                        
+                        placeholder="john.doe@example.com" />
+                      <label for="email">E-mail</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating form-floating-outline">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        name="address"
+                        />
+                      <label for="address">Address</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group input-group-merge">
+                      <div class="form-floating form-floating-outline">
+                        <input
+                          type="date"
+                          id="phoneNumber"
+                          name="dob"
+                          class="form-control"
+                          placeholder="202 555 0111" />
+                        <label for="dob">Date of Birth</label>
+                      </div>
+                    </div>
+                  </div>
+                 
+                  <div class="col-md-6">
+                    <div class="form-floating form-floating-outline">
+                      <select id="gender" class="select2 form-select" name='gender'>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                      </select>
+                      <label for="gender">Gender</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                  <input type="hidden" value="personal_details" name="save_type">
+                  <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                </div>
+              </form>
+            </div>
+            <!-- /Account -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Content -->
+
+{% endblock mainsection %}

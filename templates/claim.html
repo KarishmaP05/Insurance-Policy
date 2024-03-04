@@ -32,14 +32,27 @@
             </thead>
 
             <tbody>
+                {% for claim in claims %}
               
 
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
+                    <td>{{claim.Customer_Id.FirstName}}</td>
+                    <td>{{claim.Customer_Id.Phone_No}}</td>
+                    <td>{{claim.Policy_Id.LOB}}</td>
+                    <td>{{claim.Policy_Id.Policy_Number}}</td>
+                    <td>{{claim.Policy_Id.End_Date}}</td>
+                    <td>{{claim.Policy_Id.Product_Name}}</td>
+                    <td>{{claim.Claim_Incident_Date}}</td>
+                    <td>{{claim.Claim_Filed_Date}}</td>
+                    <td>{{claim.Requested_Claim_Amount}}</td>
+                    <td>{{claim.Claim_Final_Paid}}</td>
+                    <td>{{claim.Claim_Reason}}</td>
+                    <td>{{claim.Notes}}</td>
                     
                 </tr>
                
-              
+                {% endfor %}
             </tbody>
         </table>
     </div>

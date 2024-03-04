@@ -62,25 +62,25 @@
 
                                 <div class="mb-3">
                                     <label for="suminsured" class="form-label"> Sum Insured</label>
-                                    <input type="number" class="form-control" id="suminsured"  value={{displaypolicy.Sum_Insured}} name="suminsured"required>
+                                    <input type="number" class="form-control" id="suminsured" oninput="calculateNetPremium()" value={{displaypolicy.Sum_Insured}} name="suminsured"required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="od" class="form-label"> OD</label>
-                                    <input type="number" class="form-control" id="od"  value="{{displaypolicy.OD}}" name="od" required>
+                                    <input type="number" class="form-control" id="od"  oninput="calculateNetPremium()" value="{{displaypolicy.OD}}" name="od" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="tp" class="form-label">TP</label>
-                                    <input type="number" class="form-control" id="tp"  value="{{displaypolicy.TP}}" name="tp" required>
+                                    <input type="number" class="form-control" id="tp"  oninput="calculateNetPremium()" value="{{displaypolicy.TP}}" name="tp" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="net premium" class="form-label">Net Premium</label>
-                                    <input type="number" class="form-control" id="net premium"  value='{{displaypolicy.Net_Premium}}' name="net premium"required>
+                                    <input type="number" class="form-control" id="net premium"  oninput="calculateNetPremium()" value='{{displaypolicy.Net_Premium}}' name="net premium"required readonly='readonly'>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label form-label">GST Rate</label>
-                                    <select class="form-select" aria-label="Default select example"  placeholder="select GST Rate" name="gst rate" required>
+                                    <select class="form-select" aria-label="Default select example" oninput='calculateGrossPremium()'  placeholder="select GST Rate" name="gst rate" required>
                                         <option>select GST</option>
                                         <option value='1'>0%</option>
                                         <option value='2'>5%</option>
@@ -92,7 +92,7 @@
 
                                 <div class="mb-3">
                                     <label for="gross premium" class="form-label">Gross Premium</label>
-                                    <input  type="number" class="form-control" id="gross premium"   name="gross premium" value='{{displaypolicy.Gross_Premium}}' required>
+                                    <input  type="number" class="form-control" id="gross premium"   oninput='calculateGrossPremium()'  name="gross premium" value='{{displaypolicy.Gross_Premium}}' required readonly='readonly'>
                                 </div>
 
                                 
@@ -112,3 +112,37 @@
     </div>
 
     {% endblock mainsection %}
+
+    {% block jssection %}
+    
+
+    <script type="text/javascript">
+      function calculateNetPremium() {
+          // Get the values from the input fields
+          var sumInsured = parseFloat(document.getElementById('suminsured').value) || 0;
+          var OD = parseFloat(document.getElementById('od').value) || 0;
+          var TP = parseFloat(document.getElementById('tp').value) || 0;
+          
+          // Calculate the net premium
+          var netPremium = sumInsured + OD + TP;
+          
+          // Set the value of the net premium input field
+          document.getElementById('net premium').value = netPremium;
+      }
+  </script>
+
+
+  <script type="text/javascript">
+      function calculateGrossPremium(){
+          var netPremium= parseFloat(document.getElementById('net premium').value) || 0;
+          var gstRate= parseFloat(document.getElementById('gst rate').value) || 0;
+
+          var grossPremium=netPremium+(netPremium*gstRate/100);
+
+          document.getElementById('gross premium').value=grossPremium;
+
+      }
+
+  </script>
+  
+  {% endblock jssection %}

@@ -1,5 +1,8 @@
 from django.db import models
 from datetime import date
+from django.conf import settings
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -41,6 +44,7 @@ class Lead(models.Model):
         return self.FirstName
 
 class Policy(models.Model):
+    Customer_Id=models.ForeignKey(Customer,on_delete=models.CASCADE,default=1)
     Start_Date=models.DateField(default=date.today())
     End_Date=models.DateField(default=date.today())
     Insurance_Type=models.CharField(max_length=50)
@@ -68,7 +72,7 @@ class Policy(models.Model):
   
     
     def __str__(self):
-        return str(self.Policy_Number)
+        return str(self.Customer_Id.FirstName)
     
 
 class Claim(models.Model):
@@ -84,5 +88,45 @@ class Claim(models.Model):
     
 
     def __str__(self):
-        return self.Customer_Name
+        return str(self.Customer_Id)
+    
+
+class Employee(models.Model):
+    FirstName=models.CharField(max_length=50)
+    LastName=models.CharField(max_length=50)
+    Phone_No=models.IntegerField()
+    Email_Id=models.CharField(max_length=100)
+    Password=models.IntegerField()
+    Gender=models.CharField(max_length=100)
+    Job_Title=models.CharField(max_length=100)
+    Job_Location=models.CharField(max_length=100)
+    Joining_Date=models.DateField(default=date.today())
+    Date_Of_Birth=models.DateField(default=date.today())
+
+    def __str__(self):
+            return self.FirstName
+    
+
+
+class User_Profile(models.Model):
+    User_Id=models.ForeignKey(User,on_delete=models.CASCADE)
+    LastName=models.CharField(max_length=50)
+    Email_Id=models.CharField(max_length=100)
+    Address=models.CharField(max_length=100)
+    Date_of_Birth=models.DateField(default=date.today())
+    Gender=models.CharField(max_length=50)
+    FatherName=models.CharField(max_length=50)
+    FatherDOB=models.DateField(default=date.today())
+    MotherName=models.CharField(max_length=50)
+    MotherDOB=models.DateField(default=date.today())
+    MaritalStatus=models.CharField(max_length=50)
+    LinkedIn=models.CharField(max_length=50)
+    Twitter=models.CharField(max_length=50)
+    Instagram=models.CharField(max_length=50)
+
+
+    def __str__(self):
+        return str(self.User_Id.username)
+
+
 

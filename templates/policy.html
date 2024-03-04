@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th scope="col">Sr.No</th>
+                    <th scope="col">First Name</th>
                     <th scope="col">Start Date</th>
                     <th scope="col">End Date</th>
                     <th scope="col">LOB</th>
@@ -32,6 +33,7 @@
 
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
+                    <td>{{policy.Customer_Id.FirstName}}</td>
                     <td>{{policy.Start_Date}}</td>
                     <td>{{policy.End_Date}}</td>
                     <td>{{policy.LOB}}</td>
