@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
 from .models import Customer,Lead,Policy,Claim,Employee,User_Profile
+from django.contrib.auth import logout
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -58,6 +60,11 @@ def signin(request):
         
 
     return render(request,'signin.html',{})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/signin')
 
 def error_page(request):
     return render(request,'404.html',{})
@@ -143,6 +150,7 @@ def edit_customers(request,id):
         notes=request.POST['notes']
         customer_type=request.POST['customer-type']
         assign_to=request.POST.get('assign_to',False);
+
         edit_customer=Customer.objects.get(id=id)
         edit_customer.FirstName=firstname
         edit_customer.LastName=lastname
@@ -261,14 +269,18 @@ def create_claims(request):
 
 
 def profile(request):
-    return render(request,'profile.html',{})
+    update_user=User_Profile.objects.get(User_Id=request.user.id)
+    print("############",update_user)
+    return render(request,'profile.html',{'update_user':update_user})
 
 def family_details(request):
-    return render(request,'familydetails.html',{})
+    update_user=User_Profile.objects.get(User_Id=request.user.id)
+    return render(request,'familydetails.html',{'update_user':update_user})
 
 
 def social_media(request):
-    return render(request,'socialmedia.html',{})
+    update_user=User_Profile.objects.get(User_Id=request.user.id)
+    return render(request,'socialmedia.html',{'update_user':update_user})
 
 
 
@@ -355,6 +367,10 @@ def save_profile(request):
             save_profile.save()
 
         return redirect('/profile')
-
-
+    
+   
     return render(request,'profile.html',{})
+
+
+
+   

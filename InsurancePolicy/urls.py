@@ -31,6 +31,7 @@ urlpatterns = [
     path('single-view/',views.single_view,name="single-view"),
     path('saveprofile/',views.save_profile,name="saveprofile"),
     path('error_page/',views.error_page,name="error_page"),
+    path('logout/',views.logout_user,name="logout"),
 
     
 

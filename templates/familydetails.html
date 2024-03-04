@@ -40,14 +40,20 @@
                         type="text"
                         id="fathername"
                         name="fatherName"
-                        placeholder="Father's Name"
+                        value="{{update_user.FatherName}}"
                          />
                       <label for="fatherName">Father's Name</label>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-floating form-floating-outline">
-                      <input class="form-control" type="date" name="fatherDOB" id="fdob" value="FDOB" placeholder="Father's DOB"/>
+                      <input 
+                      class="form-control" 
+                      type="date" 
+                      name="fatherDOB" 
+                      id="fdob" 
+                      value="{{update_user.FatherDOB}}" 
+                      />
                       <label for="FDOB">Father's DOB</label>
                     </div>
                   </div>
@@ -58,7 +64,7 @@
                         type="text"
                         id="mothername"
                         name="motherName"
-                        placeholder="Mother's Name"
+                        value="{{update_user.MotherName}}""
                       />
                       <label for="motherName">Mother's Name</label>
                     </div>
@@ -70,13 +76,13 @@
                         class="form-control"
                         id="mdob"
                         name="motherDOB"
-                        placeholder="Mother's DOB" />
+                        value="{{update_user.MotherDOB}}" />
                       <label for="MDOB">Mother's DOB</label>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-floating form-floating-outline">
-                      <select id="maritalstatus" name='maritalstatus' class="select2 form-select">
+                      <select id="maritalstatus" name="maritalstatus" class="select2 form-select" value="{{update_user.MaritalStatus}}">
                         <option value="single">Single</option>
                         <option value="married">Married</option>
                       </select>

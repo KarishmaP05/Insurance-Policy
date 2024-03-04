@@ -126,7 +126,7 @@ class User_Profile(models.Model):
 
 
     def __str__(self):
-        return str(self.User_Id.username)
+        return str(self.User_Id.first_name)
 
 
 

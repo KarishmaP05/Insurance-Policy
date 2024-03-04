@@ -40,6 +40,7 @@
                         type="text"
                         id="firstname"
                         name="firstName"
+                        value="{{update_user.User_Id.first_name}}"
                        
                         autofocus />
                       <label for="firstName">First Name</label>
@@ -47,7 +48,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-floating form-floating-outline">
-                      <input class="form-control" type="text" name="lastName" id="lastName" />
+                      <input class="form-control" type="text" name="lastName" id="lastName" value="{{update_user.LastName}}" />
                       <label for="lastName">Last Name</label>
                     </div>
                   </div>
@@ -58,6 +59,7 @@
                         type="email"
                         id="email"
                         name="email"
+                        value="{{update_user.Email_Id}}"
                         
                         placeholder="john.doe@example.com" />
                       <label for="email">E-mail</label>
@@ -70,6 +72,7 @@
                         class="form-control"
                         id="address"
                         name="address"
+                        value="{{update_user.Address}}"
                         />
                       <label for="address">Address</label>
                     </div>
@@ -82,7 +85,7 @@
                           id="phoneNumber"
                           name="dob"
                           class="form-control"
-                          placeholder="202 555 0111" />
+                          value="{{update_user.Date_of_Birth}}" />
                         <label for="dob">Date of Birth</label>
                       </div>
                     </div>
@@ -90,7 +93,7 @@
                  
                   <div class="col-md-6">
                     <div class="form-floating form-floating-outline">
-                      <select id="gender" class="select2 form-select" name='gender'>
+                      <select id="gender" class="select2 form-select" name='gender' value="{{update_user.Gender}}">
                         <option value="female">Female</option>
                         <option value="male">Male</option>
                       </select>
