@@ -28,6 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+#  For live hosting
+CSRF_TRUSTED_ORIGINS = [
+    'http://65.1.94.223/8000', 
+]
+
 
 # Application definition
 
@@ -117,16 +122,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+
+# To solve static files load issue on aws
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/html", ".html", True)
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 STATICFILES_DIRS =[
     os.path.join(BASE_DIR, 'static')
 ]
 
-
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+
+
 
 
 # Default primary key field type
